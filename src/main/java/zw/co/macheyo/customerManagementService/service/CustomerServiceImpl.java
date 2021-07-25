@@ -28,15 +28,13 @@ public class CustomerServiceImpl implements CustomerService{
 
     @Override
     public Optional<Customer> findById(String id) {
-        Optional<Customer> customer = customerRepository.findById(id);
-        return customer;
+        return customerRepository.findById(id);
     }
 
     @Override
     public List<EntityModel<Customer>> findAll() {
-        List<EntityModel<Customer>> customers = customerRepository.findAll().stream()
+        return customerRepository.findAll().stream()
                 .map(assembler::toModel)
                 .collect(Collectors.toList());
-        return customers;
     }
 }

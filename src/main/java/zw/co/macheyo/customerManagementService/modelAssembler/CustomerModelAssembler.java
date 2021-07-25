@@ -14,8 +14,7 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 public class CustomerModelAssembler implements RepresentationModelAssembler<Customer, EntityModel<Customer>> {
     @Override
     public EntityModel<Customer> toModel(Customer entity) {
-        EntityModel<Customer> customerEntityModel = EntityModel.of(entity, linkTo(methodOn(CustomerController.class).allCustomers()).withRel("customers"));;
-        return customerEntityModel;
+        return EntityModel.of(entity, linkTo(methodOn(CustomerController.class).allCustomers()).withRel("customers"));
     }
 
     @Override
