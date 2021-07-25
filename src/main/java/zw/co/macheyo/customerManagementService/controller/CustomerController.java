@@ -36,7 +36,7 @@ public class CustomerController {
     @Autowired
     CustomerModelAssembler assembler;
 
-    @Operation(summary = "create new customer")
+    @Operation(summary = "Create new customer")
     @ApiResponse(responseCode = "201", description = "Customer created", content = {@Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = Customer.class))})
     @PostMapping(consumes = APPLICATION_JSON_VALUE)
     public ResponseEntity<EntityModel<Customer>> newCustomer(@Valid @RequestBody Customer customer){

@@ -20,10 +20,7 @@ public class CustomerServiceImpl implements CustomerService{
     CustomerModelAssembler assembler;
     @Override
     public Customer save(Customer customer) {
-        ModelMapper modelMapper = new ModelMapper();
-        Customer newCustomer = modelMapper.map(customer, Customer.class);
-        customerRepository.save(newCustomer);
-        return newCustomer;
+        return customerRepository.save(customer);
     }
 
     @Override
