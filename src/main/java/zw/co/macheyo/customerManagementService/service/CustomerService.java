@@ -9,5 +9,6 @@ import java.util.Optional;
 public interface CustomerService {
     Customer save(Customer customer);
     Optional<Customer> findById(String id);
+    Optional<Customer> findByCustomerId(String id);
     List<EntityModel<Customer>> findAll();
 }

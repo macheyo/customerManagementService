@@ -17,7 +17,6 @@ import zw.co.macheyo.customerManagementService.service.CustomerService;
 
 import javax.validation.Valid;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
@@ -42,16 +41,25 @@ public class CustomerController {
     public ResponseEntity<EntityModel<Customer>> newCustomer(@Valid @RequestBody Customer customer){
         Customer newCustomer = customerService.save(customer);
         return ResponseEntity
-                .created(linkTo(methodOn(CustomerController.class).oneCustomer(newCustomer.getId())).toUri())
+                .created(linkTo(methodOn(CustomerController.class).getCustomerByCustomerId(newCustomer.getId())).toUri())
                 .body(assembler.toModel(customer));
     }
 
-    @Operation(summary = "Get customer by their id")
+//    @Operation(summary = "Get customer by their id")
+//    @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "Found the customer", content = {@Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = Customer.class))}),
+//            @ApiResponse(responseCode = "404", description = "Customer not found", content = @Content)})
+//    @GetMapping("/{id}")
+//    public EntityModel<Customer> getCustomerById(@PathVariable String id) {
+//        Customer customer = customerService.findById(id).orElseThrow(()->new NotFoundException("Customer not found"));
+//        return assembler.toModel(customer);
+//    }
+
+    @Operation(summary = "Get customer by their customer id")
     @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "Found the customer", content = {@Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = Customer.class))}),
             @ApiResponse(responseCode = "404", description = "Customer not found", content = @Content)})
     @GetMapping("/{id}")
-    public EntityModel<Customer> oneCustomer(@PathVariable String id) {
-        Customer customer = customerService.findById(id).orElseThrow(()->new NotFoundException("Customer not found"));
+    public EntityModel<Customer> getCustomerByCustomerId(@PathVariable String id) {
+        Customer customer = customerService.findByCustomerId(id).orElseThrow(()->new NotFoundException("Customer not found"));
         return assembler.toModel(customer);
     }
 
